@@ -40,7 +40,7 @@ class Car extends \yii\db\ActiveRecord
         return [
             [['title', 'model_id', 'compl_id', 'compl_desc', 'color_id', 'year', 'engine', 'options'], 'required'],
             [['model_id', 'compl_id', 'color_id', 'color_met'], 'integer'],
-            [['compl_desc', 'options'], 'string'],
+            [['compl_desc', 'options', 'description', 'keywords'], 'string'],
             [['price'], 'number'],
             [['title', 'color_name', 'gearbox', 'status'], 'string', 'max' => 255],
             [['year'], 'string', 'max' => 4],
@@ -67,6 +67,8 @@ class Car extends \yii\db\ActiveRecord
             'options' => 'Опции',
             'gearbox' => 'Коробка передач',
             'status' => 'Статус',
+            'description' => 'Мета описание',
+            'keywords' => 'Ключевые слова',
             'price' => 'Цена',
         ];
     }

@@ -36,7 +36,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'shilov862@gmail.com',
+                'password' => 'fghrty39',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
