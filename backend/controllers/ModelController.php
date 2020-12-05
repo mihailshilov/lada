@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Car;
-use common\models\CarSearch;
+use common\models\Carmodel;
+use common\models\CarmodelSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CarController implements the CRUD actions for Car model.
+ * ModelController implements the CRUD actions for Carmodel model.
  */
-class CarController extends Controller
+class ModelController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class CarController extends Controller
     }
 
     /**
-     * Lists all Car models.
+     * Lists all Carmodel models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CarSearch();
+        $searchModel = new CarmodelSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class CarController extends Controller
     }
 
     /**
-     * Displays a single Car model.
+     * Displays a single Carmodel model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class CarController extends Controller
     }
 
     /**
-     * Creates a new Car model.
+     * Creates a new Carmodel model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Car();
+        $model = new Carmodel();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class CarController extends Controller
     }
 
     /**
-     * Updates an existing Car model.
+     * Updates an existing Carmodel model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class CarController extends Controller
     }
 
     /**
-     * Deletes an existing Car model.
+     * Deletes an existing Carmodel model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -109,32 +109,16 @@ class CarController extends Controller
         return $this->redirect(['index']);
     }
 
-
-    public function actionImport()
-    {
-        $fileName = Yii::getAlias('@app/import/report.xlsx');
-        $data = \moonland\phpexcel\Excel::import($fileName, [
-            'setFirstRecordAsKeys' => false, // if you want to set the keys of record column with first record, if it not set, the header with use the alphabet column on excel.
-            'setIndexSheetByName' => false, // set this if your excel data with multiple worksheet, the index of array will be set with the sheet name. If this not set, the index will use numeric.
-            'getOnlySheet' => 'sheet1', // you can set this property if you want to get the specified sheet from the excel data with multiple worksheet.
-        ]);
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-        die();
-
-    }
-
     /**
-     * Finds the Car model based on its primary key value.
+     * Finds the Carmodel model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Car the loaded model
+     * @return Carmodel the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Car::findOne($id)) !== null) {
+        if (($model = Carmodel::findOne($id)) !== null) {
             return $model;
         }
 

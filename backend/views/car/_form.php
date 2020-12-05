@@ -14,7 +14,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'model_id')->textInput() ?>
+    <?//= $form->field($model, 'model_id')->textInput() ?>
+
+    <div class="form-group field-product-category_id has-success">
+        <label class="control-label" for="product-category_id">Модель</label>
+        <select id="product-category_id" class="form-control" name="Car[model_id]" aria-invalid="false">
+
+            <?= \app\components\MenuWidget::widget([
+                'tpl' => 'select_product',
+                'model' => $model,
+                'cache_time' => 0,
+            ]) ?>
+
+        </select>
+        <div class="help-block"></div>
+    </div>
 
     <?= $form->field($model, 'compl_id')->textInput() ?>
 
@@ -43,7 +57,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

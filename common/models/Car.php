@@ -32,6 +32,11 @@ class Car extends \yii\db\ActiveRecord
         return 'car';
     }
 
+    public function getModel()
+    {
+        return $this->hasOne(Carmodel::class, ['id' => 'model_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -56,10 +61,10 @@ class Car extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Заголовок',
-            'model_id' => 'Model ID',
-            'compl_id' => 'Compl ID',
+            'model_id' => 'Модель',
+            'compl_id' => 'Код комплектации',
             'compl_desc' => 'Описание комплектации',
-            'color_id' => 'Color ID',
+            'color_id' => 'Код Цвета',
             'color_name' => 'Цвет',
             'color_met' => 'Металик',
             'year' => 'Год выпуска',

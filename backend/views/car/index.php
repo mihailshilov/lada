@@ -7,42 +7,54 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\CarSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Cars';
+$this->title = 'Автомобили';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="car-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <?= Html::a('Добавить автомобиль', ['create'], ['class' => 'btn btn-success']) ?>
+                </div>
+                <div class="box-body">
 
-    <p>
-        <?= Html::a('Create Car', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                            'id',
+                            'title',
+                            //'model_id',
+                            [
+                                'attribute' => 'model_id',
+                                'value' => function($data){
+                                    return $data->model->title ?? '-';
+                                },
+                                'format' => ['raw'],
+                            ],
+                            //'compl_id',
 
-            'id',
-            'title',
-            'model_id',
-            'compl_id',
-            'compl_desc:ntext',
-            //'color_id',
-            //'color_name',
-            //'color_met',
-            //'year',
-            //'engine',
-            //'options:ntext',
-            //'gearbox',
-            //'status',
-            //'price',
+                            'compl_desc:ntext',
+                            //'color_id',
+                            //'color_name',
+                            //'color_met',
+                            //'year',
+                            //'engine',
+                            //'options:ntext',
+                            //'gearbox',
+                            //'status',
+                            //'price',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
-</div>
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+                    <?php Pjax::end(); ?>
+                </div>
+            </div>
+        </div>
+    </div>

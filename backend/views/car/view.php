@@ -11,39 +11,50 @@ $this->params['breadcrumbs'][] = ['label' => 'Cars', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="car-view">
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Вы действительно хотите удалить товар?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </div>
+            <div class="box-body">
+                <div class="product-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+                    <?= DetailView::widget([
+                        'model' => $model,
+                        'attributes' => [
+                            'id',
+                            'title',
+                            'model_id',
+                            [
+                                'attribute' => 'model_id',
+                                'value' => $model->model->title ?? '-',
+                                'format' => ['raw'],
+                            ],
+                            'compl_id',
+                            'compl_desc:ntext',
+                            'color_id',
+                            'color_name',
+                            'color_met',
+                            'year',
+                            'engine',
+                            'options:ntext',
+                            'gearbox',
+                            'status',
+                            'price',
+                        ],
+                    ]) ?>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'model_id',
-            'compl_id',
-            'compl_desc:ntext',
-            'color_id',
-            'color_name',
-            'color_met',
-            'year',
-            'engine',
-            'options:ntext',
-            'gearbox',
-            'status',
-            'price',
-        ],
-    ]) ?>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
