@@ -21,7 +21,7 @@ class CarController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -112,6 +112,8 @@ class CarController extends Controller
 
     public function actionImport()
     {
+        set_time_limit(600);
+
         $oldcars = Car::find()->all();
 
         foreach ($oldcars as $car)
@@ -127,9 +129,11 @@ class CarController extends Controller
 
         unset($data[1]);
 
+        $n = $u = 0;
+
         foreach ($data as $k => $v)
         {
-            $n = $u = 0;
+
             if (!in_array($v['A'], $cars)){
 
                 $car = new Car();
@@ -148,9 +152,6 @@ class CarController extends Controller
                 $car->options = $v['K'];
                 $car->status = $v['L'];
                 $car->price = str_replace(',', '', $v['M']);
-
-
-
 
                 if ($car->save()) $n++;
 
@@ -184,12 +185,14 @@ class CarController extends Controller
 
             }
 
+            //sleep(1);
+
         }
 
-//        return $this->render('import', [
-//            'new' => $n,
-//            'up' => $u
-//        ]);
+        return $this->render('import', [
+            'new' => $n,
+            'up' => $u
+        ]);
 
     }
 

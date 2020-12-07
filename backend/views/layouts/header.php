@@ -16,8 +16,15 @@ use yii\helpers\Html;
         </a>
 
         <div class="navbar-custom-menu">
-
-
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <?= Html::a(
+                        'выйти',
+                        ['/site/logout'],
+                        ['data-method' => 'post', 'class' => 'dropdown-toggle']
+                    ) ?>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>
