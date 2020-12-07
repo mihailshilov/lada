@@ -118,7 +118,7 @@ class CarController extends Controller
 
         foreach ($oldcars as $car)
         {
-            $cars[] = $car->vin;
+            $cars[$car->id] = $car->vin;
         }
 
         $fileName = Yii::getAlias('@app/import/report.xlsx');
@@ -157,9 +157,14 @@ class CarController extends Controller
 
             } else {
 
-                $car = Car::find()
-                    ->where(['vin' => $v['A']])
-                    ->one();
+//                $car = Car::find()
+//                    ->where(['vin' => $v['A']])
+//                    ->with('')
+//                    ->one();
+
+                $carId = array_search($v['A'], $cars);
+
+                $car = Car::findOne($carId);
 
                 //$car->vin = $v['A'];
                 //$car->model_id = $v['B'];
@@ -191,7 +196,8 @@ class CarController extends Controller
 
         return $this->render('import', [
             'new' => $n,
-            'up' => $u
+            'up' => $u,
+            'xls' => $car->errors
         ]);
 
     }

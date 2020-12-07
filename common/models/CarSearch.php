@@ -18,7 +18,7 @@ class CarSearch extends Car
     {
         return [
             [['id', 'model_id', 'compl_id', 'color_id', 'color_met'], 'integer'],
-            [['title', 'compl_desc', 'color_name', 'year', 'engine', 'options', 'gearbox', 'status'], 'safe'],
+            [['title', 'compl_desc', 'color_name', 'year', 'engine', 'options', 'gearbox', 'status', 'vin'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -64,6 +64,7 @@ class CarSearch extends Car
             'compl_id' => $this->compl_id,
             'color_id' => $this->color_id,
             'color_met' => $this->color_met,
+            'vin' => $this->vin,
             'price' => $this->price,
         ]);
 
@@ -71,6 +72,7 @@ class CarSearch extends Car
             ->andFilterWhere(['like', 'compl_desc', $this->compl_desc])
             ->andFilterWhere(['like', 'color_name', $this->color_name])
             ->andFilterWhere(['like', 'year', $this->year])
+            ->andFilterWhere(['like', 'vin', $this->vin])
             ->andFilterWhere(['like', 'engine', $this->engine])
             ->andFilterWhere(['like', 'options', $this->options])
             ->andFilterWhere(['like', 'gearbox', $this->gearbox])

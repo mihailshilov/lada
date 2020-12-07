@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
-                            'id',
+                            //'id',
                             'title',
                             //'model_id',
                             [
@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => ['raw'],
                             ],
                             //'compl_id',
-
-                            'compl_desc:ntext',
+                            'vin',
+                            //'compl_desc:ntext',
                             //'color_id',
                             //'color_name',
                             //'color_met',
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             //'options:ntext',
                             //'gearbox',
                             //'status',
-                            //'price',
+                            'price',
 
                             ['class' => 'yii\grid\ActionColumn'],
                         ],
