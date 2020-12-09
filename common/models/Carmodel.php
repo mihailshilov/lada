@@ -30,7 +30,7 @@ class Carmodel extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['title', 'description', 'keywords', 'img'], 'string', 'max' => 255],
+            [['title', 'description', 'keywords', 'img', 'code'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,10 +41,10 @@ class Carmodel extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => 'Заголовок',
             'description' => 'Description',
             'keywords' => 'Keywords',
-            'img' => 'Img',
+            'img' => 'Изображение',
         ];
     }
 }

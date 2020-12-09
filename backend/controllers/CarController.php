@@ -21,7 +21,7 @@ class CarController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -184,7 +184,7 @@ class CarController extends Controller
                 if ($car->save()){
                     $u++;
                 } else {
-                    print_r($car->errors);
+                    $err[] = $car->errors;
                 }
 
 
@@ -197,7 +197,7 @@ class CarController extends Controller
         return $this->render('import', [
             'new' => $n,
             'up' => $u,
-            'xls' => $car->errors
+            'xls' => $err
         ]);
 
     }

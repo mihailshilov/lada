@@ -45,7 +45,7 @@ class Car extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'model_id', 'compl_id', 'compl_desc', 'color_id', 'year', 'engine', 'options'], 'required'],
-            [['model_id', 'compl_id', 'color_id', 'color_met'], 'integer'],
+            [['model_id', 'color_id', 'color_met'], 'integer'],
             [['compl_desc', 'options', 'description', 'keywords', 'vin'], 'string'],
             [['price'], 'number'],
             [['title', 'color_name', 'gearbox', 'status'], 'string', 'max' => 255],
