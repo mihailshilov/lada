@@ -42,9 +42,10 @@ class Carmodel extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Заголовок',
+            'img' => 'Изображение',
+            'code' => 'Код модели',
             'description' => 'Description',
             'keywords' => 'Keywords',
-            'img' => 'Изображение',
         ];
     }
 }

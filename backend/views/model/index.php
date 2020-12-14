@@ -7,31 +7,35 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\CarmodelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Models';
+$this->title = 'Модели';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="model-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Carmodel', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+<div class="car-index">
+    <?php //  echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <?= Html::a('Добавить модель', ['create'], ['class' => 'btn btn-success']) ?>
+                </div>
+                <div class="box-body">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'title',
-            'description',
-            'keywords',
+            'code',
+            //'description',
+            //'keywords',
             'img',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-</div>
+                </div>
+            </div>
+        </div>
+    </div>

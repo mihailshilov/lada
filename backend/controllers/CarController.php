@@ -38,9 +38,11 @@ class CarController extends Controller
         $searchModel = new CarSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'cars' => $cars
         ]);
     }
 
@@ -110,97 +112,7 @@ class CarController extends Controller
     }
 
 
-    public function actionImport()
-    {
-        set_time_limit(600);
 
-        $oldcars = Car::find()->all();
-
-        foreach ($oldcars as $car)
-        {
-            $cars[$car->id] = $car->vin;
-        }
-
-        $fileName = Yii::getAlias('@app/import/report.xlsx');
-        $data = \moonland\phpexcel\Excel::import($fileName, [
-            'setFirstRecordAsKeys' => false,
-            'setIndexSheetByName' => false,
-        ]);
-
-        unset($data[1]);
-
-        $n = $u = 0;
-
-        foreach ($data as $k => $v)
-        {
-
-            if (!in_array($v['A'], $cars)){
-
-                $car = new Car();
-
-                $car->vin = $v['A'];
-                $car->title = 'Lada' . $v['B'];
-                $car->model_id = 1;
-                $car->compl_id = $v['C'];
-                $car->compl_desc = $v['D'];
-                $car->color_id = $v['E'];
-                $car->color_name = $v['F'];
-                if($v['G'] == 'Да') $car->color_met = 1;
-                $car->year = str_replace(',', '', $v['H']);
-                $car->gearbox = $v['I'];
-                $car->engine = $v['J'];
-                $car->options = $v['K'];
-                $car->status = $v['L'];
-                $car->price = str_replace(',', '', $v['M']);
-
-                if ($car->save()) $n++;
-
-            } else {
-
-//                $car = Car::find()
-//                    ->where(['vin' => $v['A']])
-//                    ->with('')
-//                    ->one();
-
-                $carId = array_search($v['A'], $cars);
-
-                $car = Car::findOne($carId);
-
-                //$car->vin = $v['A'];
-                //$car->model_id = $v['B'];
-                $car->title = 'Lada' . $v['B'];
-                $car->compl_id = $v['C'];
-                $car->compl_desc = $v['D'];
-                $car->color_id = $v['E'];
-                $car->color_name = $v['F'];
-                if($v['G'] == 'Да') $car->color_met = 1;
-                $car->year = str_replace(',', '', $v['H']);
-                $car->gearbox = $v['I'];
-                $car->engine = $v['J'];
-                $car->options = $v['K'];
-                $car->status = $v['L'];
-                $car->price = str_replace(',', '', $v['M']);
-
-                if ($car->save()){
-                    $u++;
-                } else {
-                    $err[] = $car->errors;
-                }
-
-
-            }
-
-            //sleep(1);
-
-        }
-
-        return $this->render('import', [
-            'new' => $n,
-            'up' => $u,
-            'xls' => $err
-        ]);
-
-    }
 
     /**
      * Finds the Car model based on its primary key value.

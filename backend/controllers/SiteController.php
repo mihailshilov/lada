@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Car;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -60,7 +61,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $cars = Car::find()->count();
+        return $this->render('index', compact(['cars']));
     }
 
     /**

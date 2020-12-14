@@ -44,9 +44,9 @@ class Car extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'model_id', 'compl_id', 'compl_desc', 'color_id', 'year', 'engine', 'options'], 'required'],
+            [['title', 'model_id', 'compl_id', 'compl_desc', 'color_id', 'year', 'engine'], 'required'],
             [['model_id', 'color_id', 'color_met'], 'integer'],
-            [['compl_desc', 'options', 'description', 'keywords', 'vin'], 'string'],
+            [['compl_desc', 'options', 'description', 'keywords', 'vin', 'options'], 'string'],
             [['price'], 'number'],
             [['title', 'color_name', 'gearbox', 'status'], 'string', 'max' => 255],
             [['year'], 'string', 'max' => 4],

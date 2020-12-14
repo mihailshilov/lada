@@ -5,17 +5,27 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Carmodel */
 
-$this->title = 'Update Carmodel: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Models', 'url' => ['index']];
+$this->title = 'Изменить модель: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Модели', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Изменить';
 ?>
-<div class="model-update">
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            </div>
+            <div class="box-body">
+                <div class="category-update">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+                <?= $this->render('_form', [
+                    'model' => $model,
+                ]) ?>
 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

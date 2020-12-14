@@ -18,7 +18,7 @@ class CarmodelSearch extends Carmodel
     {
         return [
             [['id'], 'integer'],
-            [['title', 'description', 'keywords', 'img'], 'safe'],
+            [['title', 'code', 'description', 'keywords', 'img'], 'safe'],
         ];
     }
 
@@ -62,6 +62,7 @@ class CarmodelSearch extends Carmodel
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'keywords', $this->keywords])
             ->andFilterWhere(['like', 'img', $this->img]);
