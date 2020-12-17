@@ -46,6 +46,9 @@ class CarmodelSearch extends Carmodel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 35,
+            ],
         ]);
 
         $this->load($params);

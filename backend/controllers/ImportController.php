@@ -33,7 +33,7 @@ class ImportController extends Controller
         $n = $u = $d = 0;
 
 
-        $compls = [
+        $complectations = [
             '21901' => 1,
             '21902' => 1,
             '21907' => 1,
@@ -84,6 +84,8 @@ class ImportController extends Controller
             'FSA45' => 21,
             '21230' => 22,
             '21230Off-road' => 23,
+            '21214' => 24,
+            //'21214' => 25,
         ];
 
 
@@ -98,11 +100,15 @@ class ImportController extends Controller
                 $car->vin = $v['A'];
                 $car->title = 'Lada' . $v['C'];
 
+                $c_id = $v['C'];
+                if (strpos($v['E'], 'Cross') !== false) $c_id = $v['C'] . 'Cross';
+                if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Cross';
 
-
-                $model_id = 1;
-
-                $car->model_id = $model_id;
+                if (isset($complectations[$c_id])){
+                    $car->model_id = $complectations[$c_id];
+                } else {
+                    $car->model_id = 28;
+                }
                 $car->compl_id = $v['D'];
                 $car->compl_desc = $v['E'];
                 $car->color_id = $v['F'];
@@ -129,7 +135,16 @@ class ImportController extends Controller
                 $car = Car::findOne($carId);
 
                 //$car->vin = $v['A'];
-                //$car->model_id = $v['B'];
+                $c_id = $v['C'];
+                if (strpos($v['E'], 'Cross') !== false) $c_id = $v['C'] . 'Cross';
+                if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Off-road';
+
+                if (isset($complectations[$c_id])){
+                    $car->model_id = $complectations[$c_id];
+                } else {
+                    $car->model_id = 28;
+                }
+
                 $car->title = 'Lada' . $v['C'];
                 $car->compl_id = $v['D'];
                 $car->compl_desc = $v['E'];
