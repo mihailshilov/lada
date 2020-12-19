@@ -42,7 +42,6 @@ class CarController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'cars' => $cars
         ]);
     }
 
