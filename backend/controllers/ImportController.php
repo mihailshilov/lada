@@ -6,11 +6,42 @@ namespace backend\controllers;
 
 use common\models\Car;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class ImportController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['logout', 'index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+
+
     public function actionIndex()
     {
         set_time_limit(600);
@@ -102,7 +133,7 @@ class ImportController extends Controller
 
                 $c_id = $v['C'];
                 if (strpos($v['E'], 'Cross') !== false) $c_id = $v['C'] . 'Cross';
-                if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Cross';
+                if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Off-road';
 
                 if (isset($complectations[$c_id])){
                     $car->model_id = $complectations[$c_id];
