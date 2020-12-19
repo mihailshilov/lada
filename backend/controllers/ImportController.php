@@ -64,7 +64,7 @@ class ImportController extends Controller
             'GFK11Cross' => 11,
             'GFK33Cross' => 11,
             'GFK44Cross' => 11,
-            'GFLА1' => 12,
+            'GFLA1' => 12,
             'GFLS3' => 13,
             'GAB11' => 14,
             'GAB32' => 14,
