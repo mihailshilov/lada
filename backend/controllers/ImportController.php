@@ -88,7 +88,7 @@ class ImportController extends Controller
             //'21214' => 25,
         ];
 
-
+        $err = [];
 
         foreach ($data as $k => $v)
         {
