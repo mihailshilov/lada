@@ -29,7 +29,7 @@ class CarController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'view'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
