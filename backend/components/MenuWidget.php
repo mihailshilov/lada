@@ -60,7 +60,7 @@ class MenuWidget extends Widget
     {
         $tree = [];
         foreach($this->data as $id=>&$node) {
-            if(!$node['parent_id']){
+            if(!isset($node['parent_id'])){
                 $tree[$id] = &$node;
             } else {
                 $this->data[$node['parent_id']]['children'][$node['id']] = &$node;
