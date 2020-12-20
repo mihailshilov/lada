@@ -159,7 +159,7 @@ class ImportController extends Controller
                 $car->vin = $v['A'];
 
                 $c_id = $v['C'];
-                if (strpos($v['E'], 'Cross') !== false) $c_id = $v['C'] . 'Cross';
+                if (strpos($v['E'], 'Cross') !== false || strpos($v['E'], 'Кросс') !== false) $c_id = $v['C'] . 'Cross';
                 if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Off-road';
 
                 if (isset($complectations[$c_id])){
@@ -197,7 +197,7 @@ class ImportController extends Controller
 
                 //$car->vin = $v['A'];
                 $c_id = $v['C'];
-                if (strpos($v['E'], 'Cross') !== false) $c_id = $v['C'] . 'Cross';
+                if (strpos($v['E'], 'Cross') !== false || strpos($v['E'], 'Кросс') !== false) $c_id = $v['C'] . 'Cross';
                 if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Off-road';
 
                 if (isset($complectations[$c_id])){
