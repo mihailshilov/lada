@@ -30,7 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             //'description',
             //'keywords',
-            'img',
+            //'img',
+            [
+                'attribute' => 'count',
+                'value' => function($data){
+                    return count($data->car);
+                },
+                'format' => ['raw'],
+            ],
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -23,6 +23,11 @@ class Carmodel extends \yii\db\ActiveRecord
         return 'model';
     }
 
+    public function getCar()
+    {
+        return $this->hasMany(Car::class, ['model_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -46,6 +51,7 @@ class Carmodel extends \yii\db\ActiveRecord
             'code' => 'Код модели',
             'description' => 'Description',
             'keywords' => 'Keywords',
+            'count' => 'Количество машин',
         ];
     }
 }

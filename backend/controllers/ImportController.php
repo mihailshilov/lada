@@ -5,6 +5,7 @@ namespace backend\controllers;
 
 
 use common\models\Car;
+use common\models\Carmodel;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -63,61 +64,88 @@ class ImportController extends Controller
 
         $n = $u = $d = 0;
 
+        $models = Carmodel::find()->asArray()->all();
 
-        $complectations = [
-            '21901' => 1,
-            '21902' => 1,
-            '21907' => 1,
-            '21911' => 2,
-            '21912' => 2,
-            '21917' => 2,
-            '21921' => 3,
-            '21922' => 3,
-            '21927' => 3,
-            '21941' => 4,
-            '21942' => 4,
-            '21947' => 4,
-            '21941Cross' => 5,
-            '21947Cross' => 5,
-            '21901Y' => 6,
-            '21902Y' => 6,
-            '21907Y' => 6,
-            '21907D' => 7,
-            'GFL11' => 8,
-            'GFL33' => 8,
-            'GFL44' => 8,
-            'GFL11Cross' => 9,
-            'GFL33Cross' => 9,
-            'GFL44Cross' => 9,
-            'GFK11' => 10,
-            'GFK33' => 10,
-            'GFK44' => 10,
-            'GFK11Cross' => 11,
-            'GFK33Cross' => 11,
-            'GFK44Cross' => 11,
-            'GFLA1' => 12,
-            'GFLS3' => 13,
-            'GAB11' => 14,
-            'GAB32' => 14,
-            'GAB33' => 14,
-            'GAB33Cross' => 15,
-            'GAB44Cross' => 15,
-            'KS035' => 16,
-            'KS045' => 16,
-            'RS035' => 16,
-            'RS045' => 16,
-            'KS045Cross' => 17,
-            'RS045Cross' => 17,
-            'FS035' => 18,
-            'FS045' => 18,
-            'KSA45' => 19,
-            'KSA45Cross' => 20,
-            'FSA45' => 21,
-            '21230' => 22,
-            '21230Off-road' => 23,
-            '21214' => 24,
-            //'21214' => 25,
-        ];
+        foreach ($models as $model)
+        {
+            if(strpos($model['code'], ',') !== false){
+                $codes = explode(', ', $model['code']);
+
+                foreach($codes as $code)
+                {
+                    $complectations[$code] = [
+                        'title' => $model['title'],
+                        'modelId' => $model['id']
+                    ];
+                }
+
+            } else {
+                $complectations[$model['code']] = [
+                    'title' => $model['title'],
+                    'modelId' => $model['id']
+                ];
+            }
+
+        }
+
+//        echo "<pre>";
+//        print_r($complectations);
+//        echo "<pre>";
+
+//        $complectations = [
+//            '21901' => 1,
+//            '21902' => 1,
+//            '21907' => 1,
+//            '21911' => 2,
+//            '21912' => 2,
+//            '21917' => 2,
+//            '21921' => 3,
+//            '21922' => 3,
+//            '21927' => 3,
+//            '21941' => 4,
+//            '21942' => 4,
+//            '21947' => 4,
+//            '21941Cross' => 5,
+//            '21947Cross' => 5,
+//            '21901Y' => 6,
+//            '21902Y' => 6,
+//            '21907Y' => 6,
+//            '21907D' => 7,
+//            'GFL11' => 8,
+//            'GFL33' => 8,
+//            'GFL44' => 8,
+//            'GFL11Cross' => 9,
+//            'GFL33Cross' => 9,
+//            'GFL44Cross' => 9,
+//            'GFK11' => 10,
+//            'GFK33' => 10,
+//            'GFK44' => 10,
+//            'GFK11Cross' => 11,
+//            'GFK33Cross' => 11,
+//            'GFK44Cross' => 11,
+//            'GFLA1' => 12,
+//            'GFLS3' => 13,
+//            'GAB11' => 14,
+//            'GAB32' => 14,
+//            'GAB33' => 14,
+//            'GAB33Cross' => 15,
+//            'GAB44Cross' => 15,
+//            'KS035' => 16,
+//            'KS045' => 16,
+//            'RS035' => 16,
+//            'RS045' => 16,
+//            'KS045Cross' => 17,
+//            'RS045Cross' => 17,
+//            'FS035' => 18,
+//            'FS045' => 18,
+//            'KSA45' => 19,
+//            'KSA45Cross' => 20,
+//            'FSA45' => 21,
+//            '21230' => 22,
+//            '21230Off-road' => 23,
+//            '21214' => 24,
+//            //'21214' => 25,
+//        ];
 
         $err = [];
 
@@ -129,17 +157,19 @@ class ImportController extends Controller
                 $car = new Car();
 
                 $car->vin = $v['A'];
-                $car->title = 'Lada' . $v['C'];
 
                 $c_id = $v['C'];
                 if (strpos($v['E'], 'Cross') !== false) $c_id = $v['C'] . 'Cross';
                 if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Off-road';
 
                 if (isset($complectations[$c_id])){
-                    $car->model_id = $complectations[$c_id];
+                    $car->model_id = $complectations[$c_id]['modelId'];
+                    $car->title = 'Lada ' . $complectations[$c_id]['title'];
                 } else {
                     $car->model_id = 28;
+                    $car->title = 'Lada ' . 'no name';
                 }
+
                 $car->compl_id = $v['D'];
                 $car->compl_desc = $v['E'];
                 $car->color_id = $v['F'];
@@ -171,12 +201,14 @@ class ImportController extends Controller
                 if (strpos($v['E'], 'Off-road') !== false) $c_id = $v['C'] . 'Off-road';
 
                 if (isset($complectations[$c_id])){
-                    $car->model_id = $complectations[$c_id];
+                    $car->model_id = $complectations[$c_id]['modelId'];
+                    $car->title = 'Lada ' . $complectations[$c_id]['title'];
                 } else {
                     $car->model_id = 28;
+                    $car->title = 'Lada ' . 'no name';
                 }
 
-                $car->title = 'Lada' . $v['C'];
+
                 $car->compl_id = $v['D'];
                 $car->compl_desc = $v['E'];
                 $car->color_id = $v['F'];
