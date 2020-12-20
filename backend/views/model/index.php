@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'count',
                 'value' => function($data){
-                    return count($data->car);
+                    return '<a href="/car?CarSearch%5Bmodel_id%5D=' . $data->id . '">' . count($data->car) . '</a>';
                 },
                 'format' => ['raw'],
             ],
